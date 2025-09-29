@@ -1,24 +1,34 @@
 ﻿using Exiled.API.Features;
-using System.Collections.Generic;
 
 namespace RpNames.Constructor
 {
     public class NameConstructor
     {
         public string NameStructure { get; set; }
-        public List<string> RpNames { get; set; }
+        public string[] RpNames { get; set; }
+
         public NameConstructor() { }
-        public NameConstructor(string nameStructure, List<string> rpNames)
+
+        public NameConstructor(string nameStructure, string[] rpNames)
         {
             NameStructure = nameStructure;
-            RpNames = rpNames;
+
+            if (rpNames.Length > 0)
+                RpNames = rpNames;
+            else
+                RpNames = Plugin.config.MainRpNames;
         }
+
         public void Apply(Player player)
         {
-            int Random = Plugin.random.Next(1000, 9999);
-            string NewName = RpNames.Count != 0
-                ? NameStructure.Replace("%id%", player.Id.ToString()).Replace("%nick%", player.Nickname).Replace("%random%", Random.ToString()).Replace("%role%", player.Role.Name).Replace("%rpname%", RpNames.RandomItem())
-                : NameStructure.Replace("%id%", player.Id.ToString()).Replace("%nick%", player.Nickname).Replace("%random%", Random.ToString()).Replace("%role%", player.Role.Name).Replace("%rpname%", Plugin.plugin.Config.MainRpNames.RandomItem());
+            int random = Plugin.random.Next(1000, 9999);
+
+            string NewName = NameStructure
+                .Replace("%id%", player.Id.ToString())
+                .Replace("%nick%", player.Nickname)
+                .Replace("%random%", random.ToString())
+                .Replace("%role%", player.Role.Name)
+                .Replace("%rpname%", RpNames.RandomItem());
 
             player.DisplayNickname = NewName;
         }

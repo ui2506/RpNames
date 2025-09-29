@@ -12,16 +12,16 @@ namespace RpNames
         public bool Debug { get; set; } = false;
 
         [Description("Basic RP names that are accepted if the constructor rpnames is empty")]
-        public List<string> MainRpNames { get; set; } = new List<string>() { "Enter RP name here :3" };
+        public string[] MainRpNames { get; set; } = new string[] { "OtherRPNames" };
 
         [Description("RP name constructor, set rpnames to empty to use the main RP names")]
         public Dictionary<Team, NameConstructor> NameConstructor { get; set; } = new Dictionary<Team, NameConstructor>()
         {
-            {Team.ChaosInsurgency, new NameConstructor("%id% | %rpname% | %nick%", new List<string>() {"ExampleName", "ExampleRpName" }) },
-            {Team.ClassD, new NameConstructor("%id% | D-%random% | %nick%", new List<string>()) },
-            {Team.FoundationForces, new NameConstructor("%id% | %rpname% | %nick%", new List<string>()) },
-            {Team.Scientists, new NameConstructor("%id% | %rpname% | %nick%", new List<string>()) },
-            {Team.SCPs, new NameConstructor("%id% | %role% | %nick%", new List<string>()) },
+            {Team.ChaosInsurgency, new NameConstructor("%id% | %rpname% | %nick%", new string[] {"Coolguy", "Coolguy" }) },
+            {Team.ClassD, new NameConstructor("%id% | D-%random% | %nick%", new string[] { "CoolName" }) },
+            {Team.FoundationForces, new NameConstructor("%id% | %rpname% | %nick%", new string[] { "CoolName" }) },
+            {Team.Scientists, new NameConstructor("%id% | %rpname% | %nick%", new string[] { "CoolName" }) },
+            {Team.SCPs, new NameConstructor("%id% | %role% | %nick%", new string[] { "CoolName" }) },
         };
     }
 }

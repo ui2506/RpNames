@@ -1,8 +1,6 @@
 ﻿using Exiled.API.Features;
-using Exiled.Events.EventArgs.Player;
-using MEC;
-using PlayerRoles;
-using Random = System.Random;
+using RpNames.EventHandlers;
+using System;
 
 namespace RpNames
 {
@@ -10,38 +8,41 @@ namespace RpNames
     {
         public override string Prefix => "RpNames";
         public override string Name => "RpNames";
-        public override string Author => "angelseraphim.";
+        public override string Author => "ui_2506";
 
-        public static Plugin plugin;
-        public static Random random;
+        internal static Config config { get; private set; }
+        internal static Random random { get; private set; }
+
+        private PlayerEvents playerEvents;
 
         public override void OnEnabled()
         {
-            plugin = this;
+            config = Config;
             random = new Random();
-            Log.Info("I`m alive!!!");
-            Exiled.Events.Handlers.Player.ChangingRole += OnChangingRole;
+            playerEvents = new PlayerEvents();
+
+            playerEvents.Register();
+
             base.OnEnabled();
         }
+
         public override void OnDisabled()
         {
-            plugin = null;
+            playerEvents.Unregister();
+
+            config = null;
             random = null;
-            Exiled.Events.Handlers.Player.ChangingRole -= OnChangingRole;
+            playerEvents = null;
+
             base.OnDisabled();
         }
 
-        private void OnChangingRole(ChangingRoleEventArgs ev)
+        public override void OnReloaded()
         {
-            Team team = ev.NewRole.GetTeam();
-            if (!Config.NameConstructor.TryGetValue(team, out var constructor))
-            {
-                if (team == Team.Dead)
-                    ev.Player.DisplayNickname = null;
-                return;
-            }
+            OnDisabled();
+            OnEnabled();
 
-            Timing.CallDelayed(0.1f, () => constructor.Apply(ev.Player));
+            base.OnReloaded();
         }
     }
 }
