@@ -23,5 +23,12 @@ namespace RpNames
             {Team.Scientists, new NameConstructor("%id% | %rpname% | %nick%", new string[] { "CoolName" }) },
             {Team.SCPs, new NameConstructor("%id% | %role% | %nick%", new string[] { "CoolName" }) },
         };
+
+        [Description("Translation of roles")]
+        public Dictionary<RoleTypeId, string> RoleTranslation { get; set; } = new Dictionary<RoleTypeId, string>
+        {
+            { RoleTypeId.ClassD, "Class-D" },
+            { RoleTypeId.Scp049, "SCP-049" },
+        };
     }
 }

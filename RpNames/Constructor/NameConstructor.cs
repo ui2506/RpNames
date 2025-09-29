@@ -23,11 +23,15 @@ namespace RpNames.Constructor
         {
             int random = Plugin.random.Next(1000, 9999);
 
+            string roleName = Plugin.config.RoleTranslation.TryGetValue(player.Role.Type, out string translation)
+                ? translation
+                : player.Role.Name;
+
             string NewName = NameStructure
                 .Replace("%id%", player.Id.ToString())
                 .Replace("%nick%", player.Nickname)
                 .Replace("%random%", random.ToString())
-                .Replace("%role%", player.Role.Name)
+                .Replace("%role%", roleName)
                 .Replace("%rpname%", RpNames.RandomItem());
 
             player.DisplayNickname = NewName;
