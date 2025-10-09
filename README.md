@@ -1,5 +1,9 @@
 # RP Names Plugin (Exiled)
 
+![SCP:SL Plugin](https://img.shields.io/badge/SCP--SL%20Plugin-blue?style=for-the-badge)
+![Language](https://img.shields.io/badge/Language-C%23-blueviolet?style=for-the-badge)
+![Downloads](https://img.shields.io/github/downloads/ui2506/RpNames/total?label=Downloads&color=333333&style=for-the-badge)
+
 A plugin for **SCP: Secret Laboratory** (based on **Exiled**) that assigns **RP names** to players depending on their team.
 
 ## Features
