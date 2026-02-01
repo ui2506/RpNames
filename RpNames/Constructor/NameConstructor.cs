@@ -2,7 +2,7 @@
 
 namespace RpNames.Constructor
 {
-    public class NameConstructor
+    public sealed class NameConstructor
     {
         public string NameStructure { get; set; }
         public string[] RpNames { get; set; }
@@ -16,14 +16,14 @@ namespace RpNames.Constructor
             if (rpNames.Length > 0)
                 RpNames = rpNames;
             else
-                RpNames = Plugin.config.MainRpNames;
+                RpNames = Plugin.PluginConfig.MainRpNames;
         }
 
-        public void Apply(Player player)
+        internal void Apply(Player player)
         {
-            int random = Plugin.random.Next(1000, 9999);
+            int random = Plugin.Random.Next(1000, 9999);
 
-            string roleName = Plugin.config.RoleTranslation.TryGetValue(player.Role.Type, out string translation)
+            string roleName = Plugin.PluginConfig.RoleTranslation.TryGetValue(player.Role.Type, out string translation)
                 ? translation
                 : player.Role.Name;
 

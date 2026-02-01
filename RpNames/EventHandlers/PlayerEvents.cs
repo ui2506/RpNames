@@ -4,20 +4,17 @@ using PlayerRoles;
 
 namespace RpNames.EventHandlers
 {
-    internal class PlayerEvents
+    internal sealed class PlayerEvents
     {
-        internal void Register() => Exiled.Events.Handlers.Player.ChangingRole += OnChangingRole;
+        internal void Register() => Exiled.Events.Handlers.Player.Spawned += OnSpawned;
 
-        internal void Unregister() => Exiled.Events.Handlers.Player.ChangingRole -= OnChangingRole;
+        internal void Unregister() => Exiled.Events.Handlers.Player.Spawned -= OnSpawned;
 
-        private void OnChangingRole(ChangingRoleEventArgs ev)
+        private void OnSpawned(SpawnedEventArgs ev)
         {
-            if (!ev.IsAllowed)
-                return;
+            Team team = ev.Player.Role.Team;
 
-            Team team = ev.NewRole.GetTeam();
-
-            if (!Plugin.config.NameConstructor.TryGetValue(team, out var constructor))
+            if (!Plugin.PluginConfig.NameConstructor.TryGetValue(team, out var constructor))
             {
                 if (team == Team.Dead)
                     ev.Player.DisplayNickname = null;

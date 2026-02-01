@@ -6,7 +6,7 @@ using RpNames.Constructor;
 
 namespace RpNames
 {
-    public class Config : IConfig
+    public sealed class Config : IConfig
     {
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; } = false;

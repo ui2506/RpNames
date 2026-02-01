@@ -4,22 +4,22 @@ using System;
 
 namespace RpNames
 {
-    public class Plugin : Plugin<Config>
+    public sealed class Plugin : Plugin<Config>
     {
-        public override string Prefix => "RpNames";
-        public override string Name => "RpNames";
-        public override string Author => "ui_2506";
-        public override Version Version => new Version(1, 3, 1);
+        public override string Prefix { get; } = "RpNames";
+        public override string Name { get; } = "RpNames";
+        public override string Author { get; } = "ui_2506";
+        public override Version Version { get; } = new Version(1, 3, 1);
 
-        internal static Config config { get; private set; }
-        internal static Random random { get; private set; }
+        internal static Config PluginConfig { get; private set; }
+        internal static Random Random { get; private set; }
 
         private PlayerEvents playerEvents;
 
         public override void OnEnabled()
         {
-            config = Config;
-            random = new Random();
+            PluginConfig = Config;
+            Random = new Random(DateTime.Now.Second);
             playerEvents = new PlayerEvents();
 
             playerEvents.Register();
@@ -31,8 +31,8 @@ namespace RpNames
         {
             playerEvents.Unregister();
 
-            config = null;
-            random = null;
+            PluginConfig = null;
+            Random = null;
             playerEvents = null;
 
             base.OnDisabled();
