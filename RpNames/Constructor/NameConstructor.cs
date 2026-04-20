@@ -1,4 +1,5 @@
 ﻿using Exiled.API.Features;
+using UnityEngine;
 
 namespace RpNames.Constructor
 {
@@ -21,7 +22,7 @@ namespace RpNames.Constructor
 
         internal void Apply(Player player)
         {
-            int random = Plugin.Random.Next(1000, 9999);
+            int random = Random.Range(1, 9999);
 
             string roleName = Plugin.PluginConfig.RoleTranslation.TryGetValue(player.Role.Type, out string translation)
                 ? translation
@@ -30,7 +31,7 @@ namespace RpNames.Constructor
             string NewName = NameStructure
                 .Replace("%id%", player.Id.ToString())
                 .Replace("%nick%", player.Nickname)
-                .Replace("%random%", random.ToString())
+                .Replace("%random%", random.ToString("0000"))
                 .Replace("%role%", roleName)
                 .Replace("%rpname%", RpNames.RandomItem());
 
